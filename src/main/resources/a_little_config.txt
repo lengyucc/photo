@@ -1,4 +1,4 @@
-jdbcUrl = jdbc:mysql://localhost/photo?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
-user = root
-password = root
+jdbcUrl = jdbc:mysql://bdm253827559.my3w.com/bdm253827559_db?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+user = bdm253827559
+password = ming1234
 devMode = true
