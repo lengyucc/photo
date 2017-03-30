@@ -49,6 +49,30 @@ public abstract class BasePhoto<M extends BasePhoto<M>> extends Model<M> impleme
 		return get("is_video");
 	}
 
+	public void setMd5(java.lang.String md5) {
+		set("md5", md5);
+	}
+
+	public java.lang.String getMd5() {
+		return get("md5");
+	}
+
+	public void setWidth(java.lang.Integer width) {
+		set("width", width);
+	}
+
+	public java.lang.Integer getWidth() {
+		return get("width");
+	}
+
+	public void setHeight(java.lang.Integer height) {
+		set("height", height);
+	}
+
+	public java.lang.Integer getHeight() {
+		return get("height");
+	}
+
 	public void setSize(java.lang.Integer size) {
 		set("size", size);
 	}
@@ -65,19 +89,19 @@ public abstract class BasePhoto<M extends BasePhoto<M>> extends Model<M> impleme
 		return get("is_deleted");
 	}
 
-	public void setGmtCreated(java.lang.Integer gmtCreated) {
+	public void setGmtCreated(java.util.Date gmtCreated) {
 		set("gmt_created", gmtCreated);
 	}
 
-	public java.lang.Integer getGmtCreated() {
+	public java.util.Date getGmtCreated() {
 		return get("gmt_created");
 	}
 
-	public void setGmtUpdate(java.lang.Integer gmtUpdate) {
+	public void setGmtUpdate(java.util.Date gmtUpdate) {
 		set("gmt_update", gmtUpdate);
 	}
 
-	public java.lang.Integer getGmtUpdate() {
+	public java.util.Date getGmtUpdate() {
 		return get("gmt_update");
 	}
 
