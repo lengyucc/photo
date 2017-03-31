@@ -2,3 +2,4 @@ jdbcUrl = jdbc:mysql://bdm253827559.my3w.com/bdm253827559_db?characterEncoding=u
 user = bdm253827559
 password = ming1234
 devMode = true
+
