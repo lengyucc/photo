@@ -20,12 +20,15 @@ public class ImageUtils {
 	public static void main(String[] args) throws IOException {
 		// List<String> list = ThumbnailatorUtils.getSupportedOutputFormats();
 		// System.out.println(list);
-//		thumbnail("E:/images/test1.jpg", "E:/images/test1_1.jpg", 360, 360); // 550
-																				// 396
-		
-		File sourceFile = new File("E:/images/test1_1.jpg");
-		BufferedImage bufferedImage = ImageIO.read(sourceFile);
-		System.out.println("width:" + bufferedImage.getWidth() + ", height:" + bufferedImage.getHeight());
+		// thumbnail("E:/images/test1.jpg", "E:/images/test1_1.jpg", 360, 360);
+		// // 550
+		// 396
+
+		 thumbnail("E:/images/test4.jpg", "E:/images/test4_1.jpg", 1200, 1200);
+//		 thumbnail("E:/images/test4.jpg", "E:/images/test4_2.jpg", 700, 360);
+//		 thumbnail("E:/images/test4.jpg", "E:/images/test4_3.jpg", 360, 700);
+
+//		thumbnail("E:/images/test1.jpg", "E:/images/test4_3.jpg", 550, 550);
 	}
 
 	public static void thumbnail(String source, String dest, int width, int height) throws IOException {
@@ -42,14 +45,14 @@ public class ImageUtils {
 		switch (srcShape) {
 		case square: {
 			if (destShape == ImageShape.square) {
-				// 方形 -> 方形
+				System.out.println("方形 -> 方形");
 				Thumbnails.of(source).scale(1.0 * width / srcWidth).toFile(dest);
 			} else if (destShape == ImageShape.crosswise) {
-				// 方形 -> 横形
+				System.out.println("方形 -> 横形");
 				Thumbnails.of(source).scale(1.0 * width / srcWidth).sourceRegion(0, (width - height) / 2, width, height)
 						.toFile(dest);
 			} else if (destShape == ImageShape.vertical) {
-				// 方形 -> 竖形
+				System.out.println("方形 -> 竖形");
 				Thumbnails.of(source).scale(1.0 * height / srcWidth)
 						.sourceRegion((height - width) / 2, 0, width, height).toFile(dest);
 			}
@@ -58,10 +61,11 @@ public class ImageUtils {
 		case crosswise: {
 			if (destShape == ImageShape.square) {
 				System.out.println("横形 -> 方形");
-				// 横形 -> 方形
-				double proportion = 1.0 * height / srcHeight;
-				Thumbnails.of(source).scale(proportion)
-						.sourceRegion((int) ((proportion * srcWidth - width) / 2), 0, width, height).toFile(dest);
+				double swhp = 1.0 * srcWidth / srcHeight;
+				double tempHeight = width;
+				double tempWidth = tempHeight * swhp;
+				Thumbnails.of(source).scale(tempWidth/srcWidth, tempHeight/srcHeight)
+						/*.sourceRegion((int) ((swhp * height - width) / 2), 0, width, height)*/.toFile(dest);
 			} else if (destShape == ImageShape.crosswise) {
 				System.out.println("横形 -> 横形");
 				// 横形 -> 横形
@@ -71,7 +75,7 @@ public class ImageUtils {
 				Thumbnails.of(source).scale(proportion)
 						.sourceRegion((int) ((proportion * srcWidth - width) / 2), 0, width, height).toFile(dest);
 			} else if (destShape == ImageShape.vertical) {
-				
+
 			}
 			break;
 		}
