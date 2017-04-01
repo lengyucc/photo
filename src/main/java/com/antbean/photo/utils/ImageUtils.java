@@ -1,6 +1,8 @@
 package com.antbean.photo.utils;
 
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
@@ -8,7 +10,10 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
+import org.apache.commons.io.IOUtils;
+
 import net.coobird.thumbnailator.Thumbnails;
+import net.coobird.thumbnailator.geometry.Positions;
 import net.coobird.thumbnailator.util.ThumbnailatorUtils;
 
 public class ImageUtils {
@@ -18,23 +23,46 @@ public class ImageUtils {
 	public static final List<String> SUPPORTED_VIDEO_FORMATS = Arrays.asList("MP3", "mp3");
 
 	public static void main(String[] args) throws IOException {
-		// List<String> list = ThumbnailatorUtils.getSupportedOutputFormats();
-		// System.out.println(list);
-		// thumbnail("E:/images/test1.jpg", "E:/images/test1_1.jpg", 360, 360);
-		// // 550
-		// 396
+		thumbnail("e:/images/test4.jpg", "e:/images/test4_1.jpg", 700, 700);
+		thumbnail("e:/images/test4.jpg", "e:/images/test4_2.jpg", 400, 400);
+		thumbnail("e:/images/test4.jpg", "e:/images/test4_3.jpg", 1000, 1000);
 
-		 thumbnail("E:/images/test4.jpg", "E:/images/test4_1.jpg", 1200, 1200);
-//		 thumbnail("E:/images/test4.jpg", "E:/images/test4_2.jpg", 700, 360);
-//		 thumbnail("E:/images/test4.jpg", "E:/images/test4_3.jpg", 360, 700);
+		// thumbnail("e:/images/test4.jpg", "e:/images/test4_1.jpg", 700, 100);
+		// thumbnail("e:/images/test4.jpg", "e:/images/test4_2.jpg", 1000, 700);
+		// thumbnail("e:/images/test4.jpg", "e:/images/test4_3.jpg", 1000, 800);
+		// thumbnail("e:/images/test4.jpg", "e:/images/test4_4.jpg", 600, 100);
 
-//		thumbnail("E:/images/test1.jpg", "E:/images/test4_3.jpg", 550, 550);
+		// thumbnail("e:/images/test4.jpg", "e:/images/test4_1.jpg", 200, 900);
+		// thumbnail("e:/images/test4.jpg", "e:/images/test4_2.jpg", 150, 400);
+		// thumbnail("e:/images/test4.jpg", "e:/images/test4_3.jpg", 800, 1000);
+
+		// thumbnail("e:/images/test1.jpg", "e:/images/test1_1.jpg", 300, 300);
+		// thumbnail("e:/images/test1.jpg", "e:/images/test1_2.jpg", 396, 396);
+		// thumbnail("e:/images/test1.jpg", "e:/images/test1_3.jpg", 550, 550);
+
+		// thumbnail("e:/images/test1.jpg", "e:/images/test1_1.jpg", 550, 360);
+		// thumbnail("e:/images/test1.jpg", "e:/images/test1_2.jpg", 360, 350);
+		// thumbnail("e:/images/test1.jpg", "e:/images/test1_3.jpg", 580, 320);
+
+		// thumbnail("e:/images/test1.jpg", "e:/images/test1_1.jpg", 200, 396);
+		// thumbnail("e:/images/test1.jpg", "e:/images/test1_2.jpg", 100, 360);
+		// thumbnail("e:/images/test1.jpg", "e:/images/test1_3.jpg", 300, 900);
+
+		// thumbnail("e:/images/test2.jpg", "e:/images/test2_1.jpg", 200, 200);
+		// thumbnail("e:/images/test2.jpg", "e:/images/test2_2.jpg", 900, 900);
+		// thumbnail("e:/images/test2.jpg", "e:/images/test2_3.jpg", 550, 550);
+		// thumbnail("e:/images/test2.jpg", "e:/images/test2_4.jpg", 396, 396);
+
+		// thumbnail("e:/images/test2.jpg", "e:/images/test2_1.jpg", 200, 100);
+		// thumbnail("e:/images/test2.jpg", "e:/images/test2_2.jpg", 900, 300);
+		// thumbnail("e:/images/test2.jpg", "e:/images/test2_3.jpg", 600, 200);
+
+		// thumbnail("e:/images/test2.jpg", "e:/images/test2_1.jpg", 100, 400);
+		// thumbnail("e:/images/test2.jpg", "e:/images/test2_2.jpg", 200, 600);
+		// thumbnail("e:/images/test2.jpg", "e:/images/test2_3.jpg", 50, 300);
 	}
 
 	public static void thumbnail(String source, String dest, int width, int height) throws IOException {
-		// Thumbnails.of(source).size(width, height).toFile(dest);
-		// Thumbnails.of(source).forceSize(width, height).toFile(dest);
-
 		File sourceFile = new File(source);
 		BufferedImage bufferedImage = ImageIO.read(sourceFile);
 		int srcWidth = bufferedImage.getWidth();
@@ -45,47 +73,82 @@ public class ImageUtils {
 		switch (srcShape) {
 		case square: {
 			if (destShape == ImageShape.square) {
-				System.out.println("方形 -> 方形");
+				System.out.println("square -> square");
 				Thumbnails.of(source).scale(1.0 * width / srcWidth).toFile(dest);
 			} else if (destShape == ImageShape.crosswise) {
-				System.out.println("方形 -> 横形");
-				Thumbnails.of(source).scale(1.0 * width / srcWidth).sourceRegion(0, (width - height) / 2, width, height)
-						.toFile(dest);
+				System.out.println("square -> crosswise");
+				ByteArrayOutputStream out = new ByteArrayOutputStream();
+				Thumbnails.of(source).scale(1.0 * width / srcWidth).toOutputStream(out);
+				ByteArrayInputStream input = new ByteArrayInputStream(out.toByteArray());
+				Thumbnails.of(input).sourceRegion(Positions.CENTER, width, height).size(width, height).toFile(dest);
+				IOUtils.closeQuietly(input);
+				IOUtils.closeQuietly(out);
 			} else if (destShape == ImageShape.vertical) {
-				System.out.println("方形 -> 竖形");
-				Thumbnails.of(source).scale(1.0 * height / srcWidth)
-						.sourceRegion((height - width) / 2, 0, width, height).toFile(dest);
+				System.out.println("square -> vertical");
+				ByteArrayOutputStream out = new ByteArrayOutputStream();
+				Thumbnails.of(source).scale(1.0 * height / srcWidth).toOutputStream(out);
+				ByteArrayInputStream input = new ByteArrayInputStream(out.toByteArray());
+				Thumbnails.of(input).sourceRegion(Positions.CENTER, width, height).size(width, height).toFile(dest);
+				IOUtils.closeQuietly(input);
+				IOUtils.closeQuietly(out);
 			}
 			break;
 		}
 		case crosswise: {
 			if (destShape == ImageShape.square) {
-				System.out.println("横形 -> 方形");
-				double swhp = 1.0 * srcWidth / srcHeight;
-				double tempHeight = width;
-				double tempWidth = tempHeight * swhp;
-				Thumbnails.of(source).scale(tempWidth/srcWidth, tempHeight/srcHeight)
-						/*.sourceRegion((int) ((swhp * height - width) / 2), 0, width, height)*/.toFile(dest);
+				System.out.println("crosswise -> square");
+				ByteArrayOutputStream out = new ByteArrayOutputStream();
+				Thumbnails.of(source).scale(1.0 * width / srcHeight).toOutputStream(out);
+				ByteArrayInputStream input = new ByteArrayInputStream(out.toByteArray());
+				Thumbnails.of(input).sourceRegion(Positions.CENTER, width, width).size(width, width).toFile(dest);
+				IOUtils.closeQuietly(input);
+				IOUtils.closeQuietly(out);
 			} else if (destShape == ImageShape.crosswise) {
-				System.out.println("横形 -> 横形");
-				// 横形 -> 横形
-				double xp = 1.0 * width / srcWidth; // 横向缩放比
-				double yp = 1.0 * height / srcHeight; // 竖向缩放比
-				double proportion = Math.max(xp, yp);
-				Thumbnails.of(source).scale(proportion)
-						.sourceRegion((int) ((proportion * srcWidth - width) / 2), 0, width, height).toFile(dest);
+				System.out.println("crosswise -> crosswise");
+				ByteArrayOutputStream out = new ByteArrayOutputStream();
+				Thumbnails.of(source).scale(Math.max(1.0 * width / srcWidth, 1.0 * height / srcHeight))
+						.toOutputStream(out);
+				ByteArrayInputStream input = new ByteArrayInputStream(out.toByteArray());
+				Thumbnails.of(input).sourceRegion(Positions.CENTER, width, height).size(width, height).toFile(dest);
+				IOUtils.closeQuietly(input);
+				IOUtils.closeQuietly(out);
 			} else if (destShape == ImageShape.vertical) {
-
+				System.out.println("crosswise -> vertical");
+				ByteArrayOutputStream out = new ByteArrayOutputStream();
+				Thumbnails.of(source).scale(1.0 * height / srcHeight).toOutputStream(out);
+				ByteArrayInputStream input = new ByteArrayInputStream(out.toByteArray());
+				Thumbnails.of(input).sourceRegion(Positions.CENTER, width, height).size(width, height).toFile(dest);
+				IOUtils.closeQuietly(input);
+				IOUtils.closeQuietly(out);
 			}
 			break;
 		}
 		case vertical: {
 			if (destShape == ImageShape.square) {
-
+				System.out.println("vertical -> square");
+				ByteArrayOutputStream out = new ByteArrayOutputStream();
+				Thumbnails.of(source).scale(1.0 * width / srcWidth).toOutputStream(out);
+				ByteArrayInputStream input = new ByteArrayInputStream(out.toByteArray());
+				Thumbnails.of(input).sourceRegion(Positions.CENTER, width, width).size(width, width).toFile(dest);
+				IOUtils.closeQuietly(input);
+				IOUtils.closeQuietly(out);
 			} else if (destShape == ImageShape.crosswise) {
-
+				System.out.println("vertical -> crosswise");
+				ByteArrayOutputStream out = new ByteArrayOutputStream();
+				Thumbnails.of(source).scale(1.0 * width / srcWidth).toOutputStream(out);
+				ByteArrayInputStream input = new ByteArrayInputStream(out.toByteArray());
+				Thumbnails.of(input).sourceRegion(Positions.CENTER, width, height).size(width, height).toFile(dest);
+				IOUtils.closeQuietly(input);
+				IOUtils.closeQuietly(out);
 			} else if (destShape == ImageShape.vertical) {
-
+				System.out.println("vertical -> vertical");
+				ByteArrayOutputStream out = new ByteArrayOutputStream();
+				Thumbnails.of(source).scale(Math.max(1.0 * width / srcWidth, 1.0 * height / srcHeight))
+						.toOutputStream(out);
+				ByteArrayInputStream input = new ByteArrayInputStream(out.toByteArray());
+				Thumbnails.of(input).sourceRegion(Positions.CENTER, width, height).size(width, height).toFile(dest);
+				IOUtils.closeQuietly(input);
+				IOUtils.closeQuietly(out);
 			}
 			break;
 		}
