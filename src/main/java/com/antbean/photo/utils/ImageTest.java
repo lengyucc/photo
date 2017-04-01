@@ -45,10 +45,10 @@ public class ImageTest {
 		// crosswise2Vertical("e:/images/test1.jpg", "e:/images/test1_3.jpg",
 		// 300, 900);
 
-		 vertical2Square("e:/images/test2.jpg", "e:/images/test2_1.jpg", 200);
-		 vertical2Square("e:/images/test2.jpg", "e:/images/test2_2.jpg", 900);
-		 vertical2Square("e:/images/test2.jpg", "e:/images/test2_3.jpg", 550);
-		 vertical2Square("e:/images/test2.jpg", "e:/images/test2_4.jpg", 396);
+		vertical2Square("e:/images/test2.jpg", "e:/images/test2_1.jpg", 200);
+		vertical2Square("e:/images/test2.jpg", "e:/images/test2_2.jpg", 900);
+		vertical2Square("e:/images/test2.jpg", "e:/images/test2_3.jpg", 550);
+		vertical2Square("e:/images/test2.jpg", "e:/images/test2_4.jpg", 396);
 
 		// vertical2Crosswise("e:/images/test2.jpg", "e:/images/test2_1.jpg",
 		// 200,100);
@@ -61,7 +61,15 @@ public class ImageTest {
 		// 100, 400);
 		// vertical2Vertical("e:/images/test2.jpg", "e:/images/test2_2.jpg",
 		// 200, 600);
-		// vertical2Vertical("e:/images/test2.jpg", "e:/images/test2_3.jpg", 50, 300);
+		// vertical2Vertical("e:/images/test2.jpg", "e:/images/test2_3.jpg", 50,
+		// 300);
+
+		File watermarkFile = new File("e:/images/watermarker.jpg");
+		BufferedImage watermarkImg = ImageIO.read(watermarkFile);
+		int watermarkWidth = watermarkImg.getWidth();
+		int watermarkHeight = watermarkImg.getHeight();
+		Thumbnails.of("e:/images/test5.jpg").size(1024, 682).watermark(Positions.BOTTOM_RIGHT,
+				watermarkImg, 0.6f).toFile("e:/images/test1_1.jpg");
 	}
 
 	/**
