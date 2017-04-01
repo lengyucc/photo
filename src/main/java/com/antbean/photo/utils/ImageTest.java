@@ -64,10 +64,11 @@ public class ImageTest {
 		// vertical2Vertical("e:/images/test2.jpg", "e:/images/test2_3.jpg", 50,
 		// 300);
 
-		File watermarkFile = new File("e:/images/watermarker.jpg");
-		BufferedImage watermarkImg = ImageIO.read(watermarkFile);
-		int watermarkWidth = watermarkImg.getWidth();
-		int watermarkHeight = watermarkImg.getHeight();
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		Thumbnails.of("e:/images/watermarker.jpg").scale(0.3).toOutputStream(out);
+		ByteArrayInputStream input = new ByteArrayInputStream(out.toByteArray());
+		
+		BufferedImage watermarkImg = ImageIO.read(input);
 		Thumbnails.of("e:/images/test5.jpg").size(1024, 682).watermark(Positions.BOTTOM_RIGHT,
 				watermarkImg, 0.6f).toFile("e:/images/test1_1.jpg");
 	}
