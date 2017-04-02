@@ -65,6 +65,14 @@ public abstract class BaseLink<M extends BaseLink<M>> extends Model<M> implement
 		return get("album_id");
 	}
 
+	public void setTags(java.lang.String tags) {
+		set("tags", tags);
+	}
+
+	public java.lang.String getTags() {
+		return get("tags");
+	}
+
 	public void setSort(java.lang.Integer sort) {
 		set("sort", sort);
 	}

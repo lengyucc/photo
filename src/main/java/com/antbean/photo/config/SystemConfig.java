@@ -1,5 +1,6 @@
 package com.antbean.photo.config;
 
+import com.antbean.photo.controller.AlbumController;
 import com.antbean.photo.controller.IndexController;
 import com.antbean.photo.model._MappingKit;
 import com.antbean.photo.utils.SystemUtils;
@@ -37,6 +38,7 @@ public class SystemConfig extends JFinalConfig {
 	@Override
 	public void configRoute(Routes me) {
 		me.add("/", IndexController.class);
+		me.add("/album", AlbumController.class);
 	}
 
 	public static C3p0Plugin createC3p0Plugin() {

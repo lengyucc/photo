@@ -4,4 +4,4 @@ password = ming1234
 devMode = true
 
 imgBaseDir = c:/up/images
-imgServer = http:/localhost
+imgServer = http://localhost/images/

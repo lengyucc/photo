@@ -49,12 +49,12 @@ public abstract class BaseAlbum<M extends BaseAlbum<M>> extends Model<M> impleme
 		return get("size");
 	}
 
-	public void setSorts(java.lang.Integer sorts) {
-		set("sorts", sorts);
+	public void setSort(java.lang.Integer sort) {
+		set("sort", sort);
 	}
 
-	public java.lang.Integer getSorts() {
-		return get("sorts");
+	public java.lang.Integer getSort() {
+		return get("sort");
 	}
 
 	public void setIsDeleted(java.lang.Boolean isDeleted) {

@@ -1,6 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" isELIgnored="false"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <!-- saved from url=(0041)http://v3.bootcss.com/examples/dashboard/ -->
 <html lang="zh-CN">
@@ -24,10 +21,6 @@
 
 <!-- Custom styles for this template -->
 <link href="/css/dashboard.css" rel="stylesheet">
-
-<style type="text/css">
-	
-</style>
 
 <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
 <script src="/js/ie-emulation-modes-warning.js"></script>
@@ -65,23 +58,31 @@
 			<div class="col-sm-3 col-md-2 sidebar">
 				<ul class="nav nav-sidebar">
 					<li class="active">
-						<a href="#">首页 <span class="sr-only">(current)</span></a>
+						<a href="#">Home <span class="sr-only">(current)</span></a>
 					</li>
-					<li><a href="album/index">相册</a></li>
+					<li><a href="#">Albums</a></li>
 				</ul>
 			</div>
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-				<ol class="breadcrumb">
-				  <li class="active">首页</li>
-				</ol>
+				<h1 class="page-header">Home</h1>
+
 				<div class="row placeholders">
-					<c:forEach items="${links }" var="link">
-						<div class="col-xs-6 col-sm-3 placeholder">
-							<img src="${imgServer }${link.coverUri}" width="180" height="180" class="img-responsive"/>
-							<h4>${link.name }</h4>
-							<span class="text-muted">${link.shortDesc }</span>
-						</div>
-					</c:forEach>
+					<div class="col-xs-6 col-sm-3 placeholder">
+						<img
+							src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+							width="200" height="200" class="img-responsive"
+							alt="Generic placeholder thumbnail">
+						<h4>Label</h4>
+						<span class="text-muted">Something else</span>
+					</div>
+					<div class="col-xs-6 col-sm-3 placeholder">
+						<img
+							src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+							width="200" height="200" class="img-responsive"
+							alt="Generic placeholder thumbnail">
+						<h4>Label</h4>
+						<span class="text-muted">Something else</span>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -109,32 +110,8 @@
 				  		<th>操作</th>
 				  	</tr>
 				  </thead>
-				  <tbody>
-				  	<tr>
-				  		<td>1</td>
-				  		<td>
-				  			<img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="50" height="50" class="img-circle"/>
-				  		</td>
-				  		<td>
-				  			<input type="text" value="" name="name"/>
-				  		</td>
-				  		<td>
-				  			<input type="text" value="" name="shortDesc"/>
-				  		</td>
-				  		<td>
-				  			
-				  		</td>
-				  		<td>沐夏专属</td>
-				  		<td>沐夏专属</td>
-				  		<td>沐夏专属</td>
-				  	</tr>
-				  </tbody>
 				</table>
 	        </div>
-	        <div class="modal-footer">
-		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		        <button type="button" class="btn btn-primary">Save changes</button>
-		      </div>
 	      </div><!-- /.modal-content -->
 	    </div><!-- /.modal-dialog -->
 	</div>	

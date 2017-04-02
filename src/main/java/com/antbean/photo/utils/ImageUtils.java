@@ -23,9 +23,12 @@ public class ImageUtils {
 	public static final List<String> SUPPORTED_VIDEO_FORMATS = Arrays.asList("MP3", "mp3");
 
 	public static void main(String[] args) throws IOException {
-		thumbnail("e:/images/test4.jpg", "e:/images/test4_1.jpg", 700, 700);
-		thumbnail("e:/images/test4.jpg", "e:/images/test4_2.jpg", 400, 400);
-		thumbnail("e:/images/test4.jpg", "e:/images/test4_3.jpg", 1000, 1000);
+		thumbnail("d:/test/1.jpg", "d:/test/1_1.jpg", 1000, 618);
+		
+		
+//		thumbnail("e:/images/test4.jpg", "e:/images/test4_1.jpg", 700, 700);
+//		thumbnail("e:/images/test4.jpg", "e:/images/test4_2.jpg", 400, 400);
+//		thumbnail("e:/images/test4.jpg", "e:/images/test4_3.jpg", 1000, 1000);
 
 		// thumbnail("e:/images/test4.jpg", "e:/images/test4_1.jpg", 700, 100);
 		// thumbnail("e:/images/test4.jpg", "e:/images/test4_2.jpg", 1000, 700);

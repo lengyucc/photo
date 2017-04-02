@@ -26,7 +26,10 @@
 <link href="/css/dashboard.css" rel="stylesheet">
 
 <style type="text/css">
-	
+	.placeholder img {
+	    display: inline-block;
+	    border-radius: inherit;
+	}
 </style>
 
 <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
@@ -64,80 +67,29 @@
 		<div class="row">
 			<div class="col-sm-3 col-md-2 sidebar">
 				<ul class="nav nav-sidebar">
-					<li class="active">
-						<a href="#">首页 <span class="sr-only">(current)</span></a>
+					<li>
+						<a href="/">首页 </a>
 					</li>
-					<li><a href="album/index">相册</a></li>
+					<li class="active">
+						<a href="#">相册 <span class="sr-only">(current)</span></a>
+					</li>
 				</ul>
 			</div>
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 				<ol class="breadcrumb">
-				  <li class="active">首页</li>
+				  <li class="active">相册</li>
 				</ol>
 				<div class="row placeholders">
-					<c:forEach items="${links }" var="link">
-						<div class="col-xs-6 col-sm-3 placeholder">
-							<img src="${imgServer }${link.coverUri}" width="180" height="180" class="img-responsive"/>
-							<h4>${link.name }</h4>
-							<span class="text-muted">${link.shortDesc }</span>
+					<c:forEach items="${albums }" var="album">
+						<div class="col-md-2">
+							<img src="${imgServer }${album.coverUri}" width="180" height="180" class="img-responsive img-thumbnail"/>
+							<h4>${album.name }</h4>
 						</div>
-					</c:forEach>
+					</c:forEach>					
 				</div>
 			</div>
 		</div>
 	</div>
-	
-	<div id="setHomeLinksModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-	    <div class="modal-dialog modal-lg" role="document">
-	      <div class="modal-content">
-	
-	        <div class="modal-header">
-	          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-	          <h4 class="modal-title" id="myLargeModalLabel">首页设置</h4>
-	        </div>
-	        <div class="modal-body">
-	          <table class="table table-bordered">
-				  <thead>
-				  	<tr>
-				  		<th>#</th>
-				  		<th>封面</th>
-				  		<th>名称</th>
-				  		<th>短描述</th>
-				  		<th>链接到</th>
-				  		<th>排序数值</th>
-				  		<th>描述</th>
-				  		<th>操作</th>
-				  	</tr>
-				  </thead>
-				  <tbody>
-				  	<tr>
-				  		<td>1</td>
-				  		<td>
-				  			<img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="50" height="50" class="img-circle"/>
-				  		</td>
-				  		<td>
-				  			<input type="text" value="" name="name"/>
-				  		</td>
-				  		<td>
-				  			<input type="text" value="" name="shortDesc"/>
-				  		</td>
-				  		<td>
-				  			
-				  		</td>
-				  		<td>沐夏专属</td>
-				  		<td>沐夏专属</td>
-				  		<td>沐夏专属</td>
-				  	</tr>
-				  </tbody>
-				</table>
-	        </div>
-	        <div class="modal-footer">
-		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		        <button type="button" class="btn btn-primary">Save changes</button>
-		      </div>
-	      </div><!-- /.modal-content -->
-	    </div><!-- /.modal-dialog -->
-	</div>	
 
 	<!-- Bootstrap core JavaScript
     ================================================== -->
@@ -155,9 +107,6 @@
 	<script src="/js/ie10-viewport-bug-workaround.js"></script>
 
 	<script type="text/javascript">
-		function setHomeLinks(){
-			$("#setHomeLinksModal").modal();
-		}
 	</script>
 </body>
 </html>
