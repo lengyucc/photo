@@ -1,5 +1,9 @@
 package com.antbean.photo.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import com.antbean.photo.utils.SystemUtils;
 import com.jfinal.core.Controller;
 
 /**
@@ -10,6 +14,13 @@ import com.jfinal.core.Controller;
  */
 public class IndexController extends Controller {
 	public void index() {
-		render("/index.jsp");
+		render("index.jsp");
+	}
+
+	public void upImg() {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("imgBaseDir", SystemUtils.getImgBaseDir());
+		map.put("imgServer", SystemUtils.getImgServer());
+		renderJson(map);
 	}
 }

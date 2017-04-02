@@ -2,6 +2,7 @@ package com.antbean.photo.config;
 
 import com.antbean.photo.controller.IndexController;
 import com.antbean.photo.model._MappingKit;
+import com.antbean.photo.utils.SystemUtils;
 import com.jfinal.config.Constants;
 import com.jfinal.config.Handlers;
 import com.jfinal.config.Interceptors;
@@ -27,7 +28,7 @@ public class SystemConfig extends JFinalConfig {
 		PropKit.use("a_little_config.txt");
 		me.setDevMode(PropKit.getBoolean("devMode", false));
 		me.setViewType(ViewType.JSP);
-		me.setBaseViewPath("WEB-INF/jsps");
+		me.setBaseViewPath("/WEB-INF/jsps");
 	}
 
 	/**
@@ -73,5 +74,11 @@ public class SystemConfig extends JFinalConfig {
 	@Override
 	public void configHandler(Handlers me) {
 
+	}
+
+	@Override
+	public void afterJFinalStart() {
+		super.afterJFinalStart();
+		SystemUtils.init(PropKit.get("imgBaseDir"), PropKit.get("imgServer"));
 	}
 }
