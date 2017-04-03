@@ -23,12 +23,12 @@ public class ImageUtils {
 	public static final List<String> SUPPORTED_VIDEO_FORMATS = Arrays.asList("MP3", "mp3");
 
 	public static void main(String[] args) throws IOException {
-		thumbnail("d:/test/1.jpg", "d:/test/1_1.jpg", 1000, 618);
-		
-		
-//		thumbnail("e:/images/test4.jpg", "e:/images/test4_1.jpg", 700, 700);
-//		thumbnail("e:/images/test4.jpg", "e:/images/test4_2.jpg", 400, 400);
-//		thumbnail("e:/images/test4.jpg", "e:/images/test4_3.jpg", 1000, 1000);
+//		thumbnail("d:/test/1.jpg", "d:/test/1_1.jpg", 1000, 618);
+
+		// thumbnail("e:/images/test4.jpg", "e:/images/test4_1.jpg", 700, 700);
+		// thumbnail("e:/images/test4.jpg", "e:/images/test4_2.jpg", 400, 400);
+		// thumbnail("e:/images/test4.jpg", "e:/images/test4_3.jpg", 1000,
+		// 1000);
 
 		// thumbnail("e:/images/test4.jpg", "e:/images/test4_1.jpg", 700, 100);
 		// thumbnail("e:/images/test4.jpg", "e:/images/test4_2.jpg", 1000, 700);
@@ -65,20 +65,20 @@ public class ImageUtils {
 		// thumbnail("e:/images/test2.jpg", "e:/images/test2_3.jpg", 50, 300);
 	}
 
-	public static void thumbnail(String source, String dest, int width, int height) throws IOException {
-		File sourceFile = new File(source);
-		BufferedImage bufferedImage = ImageIO.read(sourceFile);
+	public static void thumbnail(File source, File dest, int width, int height) throws IOException {
+//		File sourceFile = new File(source);
+		BufferedImage bufferedImage = ImageIO.read(source);
 		int srcWidth = bufferedImage.getWidth();
 		int srcHeight = bufferedImage.getHeight();
-		ImageShape srcShape = getImageShape(srcWidth, srcHeight);
-		ImageShape destShape = getImageShape(width, height);
+		ImageShapes srcShape = getImageShape(srcWidth, srcHeight);
+		ImageShapes destShape = getImageShape(width, height);
 
 		switch (srcShape) {
 		case square: {
-			if (destShape == ImageShape.square) {
+			if (destShape == ImageShapes.square) {
 				System.out.println("square -> square");
 				Thumbnails.of(source).scale(1.0 * width / srcWidth).toFile(dest);
-			} else if (destShape == ImageShape.crosswise) {
+			} else if (destShape == ImageShapes.crosswise) {
 				System.out.println("square -> crosswise");
 				ByteArrayOutputStream out = new ByteArrayOutputStream();
 				Thumbnails.of(source).scale(1.0 * width / srcWidth).toOutputStream(out);
@@ -86,7 +86,7 @@ public class ImageUtils {
 				Thumbnails.of(input).sourceRegion(Positions.CENTER, width, height).size(width, height).toFile(dest);
 				IOUtils.closeQuietly(input);
 				IOUtils.closeQuietly(out);
-			} else if (destShape == ImageShape.vertical) {
+			} else if (destShape == ImageShapes.vertical) {
 				System.out.println("square -> vertical");
 				ByteArrayOutputStream out = new ByteArrayOutputStream();
 				Thumbnails.of(source).scale(1.0 * height / srcWidth).toOutputStream(out);
@@ -98,7 +98,7 @@ public class ImageUtils {
 			break;
 		}
 		case crosswise: {
-			if (destShape == ImageShape.square) {
+			if (destShape == ImageShapes.square) {
 				System.out.println("crosswise -> square");
 				ByteArrayOutputStream out = new ByteArrayOutputStream();
 				Thumbnails.of(source).scale(1.0 * width / srcHeight).toOutputStream(out);
@@ -106,7 +106,7 @@ public class ImageUtils {
 				Thumbnails.of(input).sourceRegion(Positions.CENTER, width, width).size(width, width).toFile(dest);
 				IOUtils.closeQuietly(input);
 				IOUtils.closeQuietly(out);
-			} else if (destShape == ImageShape.crosswise) {
+			} else if (destShape == ImageShapes.crosswise) {
 				System.out.println("crosswise -> crosswise");
 				ByteArrayOutputStream out = new ByteArrayOutputStream();
 				Thumbnails.of(source).scale(Math.max(1.0 * width / srcWidth, 1.0 * height / srcHeight))
@@ -115,7 +115,7 @@ public class ImageUtils {
 				Thumbnails.of(input).sourceRegion(Positions.CENTER, width, height).size(width, height).toFile(dest);
 				IOUtils.closeQuietly(input);
 				IOUtils.closeQuietly(out);
-			} else if (destShape == ImageShape.vertical) {
+			} else if (destShape == ImageShapes.vertical) {
 				System.out.println("crosswise -> vertical");
 				ByteArrayOutputStream out = new ByteArrayOutputStream();
 				Thumbnails.of(source).scale(1.0 * height / srcHeight).toOutputStream(out);
@@ -127,7 +127,7 @@ public class ImageUtils {
 			break;
 		}
 		case vertical: {
-			if (destShape == ImageShape.square) {
+			if (destShape == ImageShapes.square) {
 				System.out.println("vertical -> square");
 				ByteArrayOutputStream out = new ByteArrayOutputStream();
 				Thumbnails.of(source).scale(1.0 * width / srcWidth).toOutputStream(out);
@@ -135,7 +135,7 @@ public class ImageUtils {
 				Thumbnails.of(input).sourceRegion(Positions.CENTER, width, width).size(width, width).toFile(dest);
 				IOUtils.closeQuietly(input);
 				IOUtils.closeQuietly(out);
-			} else if (destShape == ImageShape.crosswise) {
+			} else if (destShape == ImageShapes.crosswise) {
 				System.out.println("vertical -> crosswise");
 				ByteArrayOutputStream out = new ByteArrayOutputStream();
 				Thumbnails.of(source).scale(1.0 * width / srcWidth).toOutputStream(out);
@@ -143,7 +143,7 @@ public class ImageUtils {
 				Thumbnails.of(input).sourceRegion(Positions.CENTER, width, height).size(width, height).toFile(dest);
 				IOUtils.closeQuietly(input);
 				IOUtils.closeQuietly(out);
-			} else if (destShape == ImageShape.vertical) {
+			} else if (destShape == ImageShapes.vertical) {
 				System.out.println("vertical -> vertical");
 				ByteArrayOutputStream out = new ByteArrayOutputStream();
 				Thumbnails.of(source).scale(Math.max(1.0 * width / srcWidth, 1.0 * height / srcHeight))
@@ -158,11 +158,19 @@ public class ImageUtils {
 		}
 	}
 
-	public static ImageShape getImageShape(int width, int height) {
-		return (width > height ? ImageShape.crosswise : (width < height ? ImageShape.vertical : ImageShape.square));
+	public static void check(File... images) throws IOException {
+		if (images != null) {
+			for (File image : images) {
+				ImageIO.read(image);
+			}
+		}
 	}
 
-	public enum ImageShape {
+	public static ImageShapes getImageShape(int width, int height) {
+		return (width > height ? ImageShapes.crosswise : (width < height ? ImageShapes.vertical : ImageShapes.square));
+	}
+
+	public enum ImageShapes {
 		square, crosswise, vertical
 	}
 }

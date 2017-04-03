@@ -3,5 +3,10 @@ user = bdm253827559
 password = ming1234
 devMode = true
 
+upTempDir = c:/up
 imgBaseDir = c:/up/images
 imgServer = http://localhost/images/
+
+linkCoverSize = 180,180
+albumCoverSize = 180,180
+photoCoverSize = 180,180

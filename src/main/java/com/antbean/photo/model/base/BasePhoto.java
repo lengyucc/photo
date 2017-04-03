@@ -49,14 +49,6 @@ public abstract class BasePhoto<M extends BasePhoto<M>> extends Model<M> impleme
 		return get("is_video");
 	}
 
-	public void setMd5(java.lang.String md5) {
-		set("md5", md5);
-	}
-
-	public java.lang.String getMd5() {
-		return get("md5");
-	}
-
 	public void setWidth(java.lang.Integer width) {
 		set("width", width);
 	}

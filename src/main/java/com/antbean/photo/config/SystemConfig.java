@@ -30,6 +30,7 @@ public class SystemConfig extends JFinalConfig {
 		me.setDevMode(PropKit.getBoolean("devMode", false));
 		me.setViewType(ViewType.JSP);
 		me.setBaseViewPath("/WEB-INF/jsps");
+		me.setBaseUploadPath(PropKit.get("upTempDir"));
 	}
 
 	/**
@@ -81,6 +82,23 @@ public class SystemConfig extends JFinalConfig {
 	@Override
 	public void afterJFinalStart() {
 		super.afterJFinalStart();
-		SystemUtils.init(PropKit.get("imgBaseDir"), PropKit.get("imgServer"));
+		String imgBaseDir = PropKit.get("imgBaseDir");
+		String imgServer = PropKit.get("imgServer");
+		String linkCoverSize = PropKit.get("linkCoverSize");
+		String albumCoverSize = PropKit.get("albumCoverSize");
+		String photoCoverSize = PropKit.get("photoCoverSize");
+
+		String[] linkCoverSizes = linkCoverSize.trim().split(",");
+		String[] albumCoverSizes = albumCoverSize.trim().split(",");
+		String[] photoCoverSizes = photoCoverSize.trim().split(",");
+		int linkCoverWidth = Integer.parseInt(linkCoverSizes[0].trim());
+		int linkCoverHeight = Integer.parseInt(linkCoverSizes[1].trim());
+		int albumCoverWidth = Integer.parseInt(albumCoverSizes[0].trim());
+		int albumCoverHeight = Integer.parseInt(albumCoverSizes[1].trim());
+		int photoCoverWidth = Integer.parseInt(photoCoverSizes[0].trim());
+		int photoCoverHeight = Integer.parseInt(photoCoverSizes[1].trim());
+
+		SystemUtils.init(imgBaseDir, imgServer, linkCoverWidth, linkCoverHeight, albumCoverWidth, albumCoverHeight,
+				photoCoverWidth, photoCoverHeight);
 	}
 }
