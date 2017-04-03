@@ -110,7 +110,7 @@
 		</div>
 	</div>
 	
-	<div id="createAlbumModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+	<div id="createAlbumModal" data-backdrop="static" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
 	    <div class="modal-dialog modal-lg" role="document">
 	      <div class="modal-content">
 	
@@ -149,6 +149,7 @@
 	      </div><!-- /.modal-content -->
 	    </div><!-- /.modal-dialog -->
 	</div>		
+	<jsp:include page="../part/common.jsp"></jsp:include>
 
 	<!-- Bootstrap core JavaScript
     ================================================== -->
@@ -171,6 +172,7 @@
 	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 	<script src="/js/ie10-viewport-bug-workaround.js"></script>
 	<script src="/js/ajaxfileupload.js"></script>
+	<script src="/js/common.js"></script>
 
 	<script type="text/javascript">
 		function showCreateAlbumModal(){
@@ -195,18 +197,23 @@
 				alert("请选择相册封面");
 				return false;
 			} */
+			loading_show();
 			$.ajax({
 		        url: "/album/create",
 		        data: $("#createAlbumModal form").serialize(),
 		        type: 'POST',
 		        dataType: 'JSON',
 		        success: function(res){
+		        	loading_hide();
 		        	if(res.success){
 		        		alert("创建成功");
 		        		window.location.reload();
 		        	}else{
 		            	alert(res.errMsg);
 		        	}
+	            },
+	            error: function(){
+		        	loading_hide();
 	            }
 		    });				
 		}
@@ -214,12 +221,14 @@
 		function up(obj){
 			var v = $(obj).val();
 			if(v && v != ''){
+				loading_show();
 				$.ajaxFileUpload({
 					url : "/up?m=2",
 					secureuri : false,
 					fileElementId : "upEle",
 					dataType: 'json',
 					success : function(data, status, e) {
+						loading_hide();
 						if(data.success){
 							var d = data.data[0];
 							$("#albumCoverImg").attr("src",data.imgServer+d.coverUri);
@@ -229,11 +238,14 @@
 						}
 					},
 					error:function(data,status,e){
+						loading_hide();
 						console.log("error:" + JSON.stringify(data)+"-" + status+"-" + e);
 					}
 				});
 			}
 		}
+		//loading_show();
 	</script>
+	
 </body>
 </html>
