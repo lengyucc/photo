@@ -41,6 +41,14 @@ public abstract class BasePhoto<M extends BasePhoto<M>> extends Model<M> impleme
 		return get("uri");
 	}
 
+	public void setCoverUri(java.lang.String coverUri) {
+		set("cover_uri", coverUri);
+	}
+
+	public java.lang.String getCoverUri() {
+		return get("cover_uri");
+	}
+
 	public void setIsVideo(java.lang.Boolean isVideo) {
 		set("is_video", isVideo);
 	}
@@ -65,12 +73,12 @@ public abstract class BasePhoto<M extends BasePhoto<M>> extends Model<M> impleme
 		return get("height");
 	}
 
-	public void setSize(java.lang.Integer size) {
-		set("size", size);
+	public void setLength(java.lang.Integer length) {
+		set("length", length);
 	}
 
-	public java.lang.Integer getSize() {
-		return get("size");
+	public java.lang.Integer getLength() {
+		return get("length");
 	}
 
 	public void setIsDeleted(java.lang.Boolean isDeleted) {

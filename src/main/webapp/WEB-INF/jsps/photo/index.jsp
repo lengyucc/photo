@@ -21,7 +21,15 @@
 	    padding-left: 4px;
 	    padding-right: 4px;
 	}
-	
+	.main .col-md-2 {
+	    margin-top: 10px;
+	    margin-bottom: 10px;
+	    padding-left: 4px;
+	    padding-right: 4px;
+	}
+	.mpager{
+		text-align: center;
+	}
 </style>
 </head>
 
@@ -41,20 +49,23 @@
 				</ul>
 			</div>
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-				<ol class="breadcrumb">
-				  <li><a href="/album">相册</a></li>
-				  <li class="active">相册1</li>
-				</ol>
 				<div class="btns">
 					<input type="file" name="up" id="upEle" multiple="multiple" onchange="up(this);"/>
 					<button type="button" class="btn btn-info" onclick="triggerFileEleClick();">上传照片</button>
 				</div>				
-				<div class="row placeholders">
+				
+				<div class="row placeholders  gallery auto-loop">
 				  <c:forEach items="${photos }" var="photo">
-					  <div class="col-md-2 clickable">
-						<img src="${imgServer }${photo.uri}" width="180" height="180" class="img-responsive img-thumbnail"/>
+					  <div class="col-md-2 clickable" data-src="${imgServer }${photo.uri}">
+						<img src="${imgServer }${photo.coverUri}" width="180" height="180" class="img-responsive img-thumbnail"/>
 					  </div>
 				  </c:forEach>
+				</div>
+				<div class="mpager">
+					<jsp:include page="../part/pager.jsp">
+						<jsp:param value="/photo?aid=${album.id }&" name="url"/>
+						<jsp:param value="p" name="pageIdxKeyWord"/>
+					</jsp:include>
 				</div>
 			</div>
 		</div>
@@ -68,15 +79,15 @@
 	          <h4 class="modal-title" id="myLargeModalLabel">上传预览</h4>
 	        </div>
 	        <div class="modal-body">
-				<div class="row placeholders">
-				
+				<div class="row placeholders gallery auto-loop">
+
 				</div>
 	        </div>
 	        <div class="modal-footer">
 	        	<input type="file" name="up" id="upEle" onchange="up(this);"/>
 		        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 		        <button type="button" class="btn btn-primary" onclick="triggerFileEleClick();"  data-toggle="tooltip" data-placement="top" title="按住Crtl可选择多个">继续添加</button>
-		        <button type="button" class="btn btn-primary" onclick="createAlbum();">确认上传</button>
+		        <button type="button" class="btn btn-primary" onclick="confirmUp();">确认上传</button>
 		      </div>
 	      </div><!-- /.modal-content -->
 	    </div><!-- /.modal-dialog -->
@@ -87,6 +98,43 @@
 		function triggerFileEleClick(){
 			$("#upEle").trigger("click");
 		}	
+		function confirmUp(){
+			loading_show();
+			var photos = new Array();
+			$("#previewPhotoModal .modal-body .row .mphoto").each(function(){
+				var uri = $(this).attr("v_uri");
+				var coverUri = $(this).attr("v_cover_uri");
+				var isVideo = $(this).attr("v_is_video");
+				
+				var photo = new Object();
+				photo.uri = uri;
+				photo.coverUri = coverUri;
+				photo.isVideo = isVideo;
+				photos.push(photo);								
+			});
+			console.log(JSON.stringify(photos));
+			
+			$.ajax({
+		        url: '/photo/create',
+		        data: 'photos='+JSON.stringify(photos) + "&albumId=${album.id}",
+		        type: 'POST',
+		        dataType: 'JSON',
+		        success: function(res){
+		        	alert(res);
+		        	alert(res.success);
+		        	if(res.success){
+		        		alert("上传成功!");
+		        		window.location.reload();
+		        	}else{
+		            	alert(res.errMsg);
+		        	}
+	            },
+	            error: function(){
+	            	
+	            }
+		    });		
+			loading_hide();
+		}
 		function up(obj){
 			var v = $(obj).val();
 			if(v && v != ''){
@@ -100,19 +148,20 @@
 					success : function(data, status, e) {
 						loading_hide();
 						if(data.success){
-							// <div class="col-md-2">
-							// 	<img src="${imgServer }${album.coverUri}" width="180" height="180" class="img-responsive img-thumbnail"/>
-							// 	<h4>${album.name }</h4>
-							// </div>
-							var html = '';
+							var html = $("#previewPhotoModal .modal-body .row").html();	// 需要以这种形式重新渲染
 							for(var i=0;i<data.data.length;i++){
 								var d = data.data[i];
-								html += '<div class="col-md-2 mphoto">';
+								html += '<div class="col-md-2 mphoto" data-src="'+data.imgServer+d.uri+'" v_cover_uri="'+d.coverUri+'" v_uri="'+d.uri+'" v_is_video="'+d.isVideo+'">';
 								html += '	<img src="'+data.imgServer+d.coverUri+'" width="160" height="160" class="img-responsive img-rounded"/>';
-								html += '	<input type="text" class="pname" value="'+d.name+'"/>';
 								html += '</div>';
 							}
-							$("#previewPhotoModal .modal-body .row").append(html);
+							$("#previewPhotoModal .modal-body .row").html(html);	// 需要以这种形式重新渲染
+							
+							$("#previewPhotoModal .auto-loop").lightGallery({
+								loop:true,
+								auto:true,
+								pause:4000
+							});
 						}else{
 							alert(data.errMsg);
 						}
@@ -123,7 +172,13 @@
 					}
 				});
 			}
-		}		
+		}	
+		
+		$(".main .auto-loop").lightGallery({
+			loop:true,
+			auto:true,
+			pause:4000
+		});
 	</script>
 </body>
 </html>

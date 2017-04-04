@@ -34,9 +34,6 @@
 				</ul>
 			</div>
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-				<ol class="breadcrumb">
-				  <li class="active">相册</li>
-				</ol>
 				<div class="btns">
 					<button type="button" class="btn btn-info" onclick="showCreateAlbumModal();">创建相册</button>
 				</div>

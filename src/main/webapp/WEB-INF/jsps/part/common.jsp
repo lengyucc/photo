@@ -8,7 +8,7 @@
     </div>
   </div>		
 </div>
-<div id="viewPhotoModal" class="modal fade bs-example-modal-lg loading" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+<div id="viewPhotoModal" data-backdrop="static" class="modal fade bs-example-modal-lg loading" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <img alt="" src="http://localhost/1.jpg"/>&nbsp;&nbsp;

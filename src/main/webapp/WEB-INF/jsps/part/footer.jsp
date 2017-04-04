@@ -17,3 +17,4 @@
 	<script src="/js/ie10-viewport-bug-workaround.js"></script>
 	<script src="/js/ajaxfileupload.js"></script>
 	<script src="/js/common.js"></script>	
+	<script src="/lib/lightgallery/js/lightGallery.min.js"></script>	

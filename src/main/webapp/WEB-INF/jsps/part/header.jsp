@@ -21,6 +21,8 @@
 <!-- Custom styles for this template -->
 <link href="/css/dashboard.css" rel="stylesheet">
 
+<link rel="stylesheet" type="text/css" href="/lib/lightgallery/css/lightGallery.css" />
+
 <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
 <script src="/js/ie-emulation-modes-warning.js"></script>
 
@@ -56,4 +58,11 @@
 	#upEle{
 		display: none;
 	}	
+	body{
+		//background: url(/images/bg3.jpg) repeat fixed top;
+		background: url(/images/bg.png) repeat fixed top;
+	}
+	.sidebar{
+		background-color: #222;
+	}
 </style>
