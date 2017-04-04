@@ -11,16 +11,6 @@
 	    display: inline-block;
 	    border-radius: inherit;
 	}
-	.breadcrumb{
-		margin-bottom: 10px;
-	}
-	.btns{
-		width: 100%;
-		margin-bottom: 10px;
-	}
-	#upEle{
-		display: none;
-	}
 	#albumCoverImg:hover{
 		cursor: pointer;
 		border: 1px solid gray;
@@ -49,11 +39,10 @@
 				</ol>
 				<div class="btns">
 					<button type="button" class="btn btn-info" onclick="showCreateAlbumModal();">创建相册</button>
-					<button type="button" class="btn btn-info">上传照片</button>
 				</div>
 				<div class="row placeholders">
 					<c:forEach items="${albums }" var="album">
-						<div class="col-md-2 clickable" link_url="/album/detail?aid=${album.id }">
+						<div class="col-md-2 clickable" link_url="/photo?aid=${album.id }">
 							<img src="${imgServer }${album.coverUri}" width="180" height="180" class="img-responsive img-thumbnail"/>
 							<h4>${album.name }</h4>
 						</div>

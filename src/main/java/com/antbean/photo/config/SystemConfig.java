@@ -2,6 +2,7 @@ package com.antbean.photo.config;
 
 import com.antbean.photo.controller.AlbumController;
 import com.antbean.photo.controller.IndexController;
+import com.antbean.photo.controller.PhotoController;
 import com.antbean.photo.model._MappingKit;
 import com.antbean.photo.utils.SystemUtils;
 import com.jfinal.config.Constants;
@@ -10,6 +11,7 @@ import com.jfinal.config.Interceptors;
 import com.jfinal.config.JFinalConfig;
 import com.jfinal.config.Plugins;
 import com.jfinal.config.Routes;
+import com.jfinal.core.Const;
 import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.c3p0.C3p0Plugin;
@@ -31,6 +33,7 @@ public class SystemConfig extends JFinalConfig {
 		me.setViewType(ViewType.JSP);
 		me.setBaseViewPath("/WEB-INF/jsps");
 		me.setBaseUploadPath(PropKit.get("upTempDir"));
+		me.setMaxPostSize(200 * Const.DEFAULT_MAX_POST_SIZE);
 	}
 
 	/**
@@ -40,6 +43,7 @@ public class SystemConfig extends JFinalConfig {
 	public void configRoute(Routes me) {
 		me.add("/", IndexController.class);
 		me.add("/album", AlbumController.class);
+		me.add("/photo", PhotoController.class);
 	}
 
 	public static C3p0Plugin createC3p0Plugin() {

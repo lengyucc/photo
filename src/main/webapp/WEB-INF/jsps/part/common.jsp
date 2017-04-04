@@ -8,6 +8,13 @@
     </div>
   </div>		
 </div>
+<div id="viewPhotoModal" class="modal fade bs-example-modal-lg loading" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <img alt="" src="http://localhost/1.jpg"/>&nbsp;&nbsp;
+    </div>
+  </div>		
+</div>
 <div id="setHomeLinksModal" data-backdrop="static" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
@@ -59,12 +66,5 @@
     </div><!-- /.modal-dialog -->
 </div>	
 <script>
-$(function(){
-	$(document).on("click",".clickable",function(){
-		window.location.href = $(this).attr("link_url");
-	});
-});
-function setHomeLinks(){
-	$("#setHomeLinksModal").modal();
-}
+
 </script>

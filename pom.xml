@@ -113,6 +113,11 @@
 			<artifactId>commons-lang</artifactId>
 			<version>2.6</version>
 		</dependency>
+		<dependency>
+		    <groupId>com.servlets</groupId>
+		    <artifactId>cos</artifactId>
+		    <version>09May2002</version>
+		</dependency>
 
 	</dependencies>
 	<build>

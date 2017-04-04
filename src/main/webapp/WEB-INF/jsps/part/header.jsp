@@ -25,6 +25,9 @@
 <script src="/js/ie-emulation-modes-warning.js"></script>
 
 <style type="text/css">
+	.breadcrumb{
+		margin-bottom: 10px;
+	}
 	#loadingModal{
 		padding-top: 10%;
 		z-index: 1050;
@@ -46,4 +49,11 @@
 	.clickable:hover{
 		cursor: pointer;
 	}
+	.btns{
+		width: 100%;
+		margin-bottom: 10px;
+	}
+	#upEle{
+		display: none;
+	}	
 </style>
