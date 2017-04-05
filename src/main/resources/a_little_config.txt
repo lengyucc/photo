@@ -12,3 +12,4 @@ albumCoverSize = 180,180
 photoCoverSize = 180,180
 
 pageSize = 18
+
