@@ -145,7 +145,7 @@
 					dataType: 'json',
 					success : function(data, status, e) {
 						loading_hide();
-						if(data.success){
+						if(data.success){ 
 							var html = $("#previewPhotoModal .modal-body .row").html();	// 需要以这种形式重新渲染
 							for(var i=0;i<data.data.length;i++){
 								var d = data.data[i];
