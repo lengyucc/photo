@@ -120,8 +120,6 @@
 		        type: 'POST',
 		        dataType: 'JSON',
 		        success: function(res){
-		        	alert(res);
-		        	alert(res.success);
 		        	if(res.success){
 		        		alert("上传成功!");
 		        		window.location.reload();
@@ -130,7 +128,7 @@
 		        	}
 	            },
 	            error: function(){
-	            	
+	            	alert("error");
 	            }
 		    });		
 			loading_hide();

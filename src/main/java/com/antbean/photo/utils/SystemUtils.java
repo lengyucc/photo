@@ -9,6 +9,7 @@ public class SystemUtils {
 	private int albumCoverHeight;
 	private int photoCoverWidth;
 	private int photoCoverHeight;
+	private int pageSize;
 
 	private static final SystemUtils instance = new SystemUtils();
 
@@ -16,7 +17,7 @@ public class SystemUtils {
 	}
 
 	public static void init(String imgBaseDir, String imgServer, int linkCoverWidth, int linkCoverHeight,
-			int albumCoverWidth, int albumCoverHeight, int photoCoverWidth, int photoCoverHeight) {
+			int albumCoverWidth, int albumCoverHeight, int photoCoverWidth, int photoCoverHeight, int pageSize) {
 		instance.imgBaseDir = imgBaseDir;
 		instance.imgServer = imgServer;
 		instance.linkCoverWidth = linkCoverWidth;
@@ -25,6 +26,7 @@ public class SystemUtils {
 		instance.albumCoverHeight = albumCoverHeight;
 		instance.photoCoverWidth = photoCoverWidth;
 		instance.photoCoverHeight = photoCoverHeight;
+		instance.pageSize = pageSize;
 	}
 
 	public static String getImgBaseDir() {
@@ -57,6 +59,10 @@ public class SystemUtils {
 
 	public static int getPhotoCoverHeight() {
 		return instance.photoCoverHeight;
+	}
+
+	public static int getPageSize() {
+		return instance.pageSize;
 	}
 
 }

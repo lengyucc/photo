@@ -91,6 +91,7 @@ public class SystemConfig extends JFinalConfig {
 		String linkCoverSize = PropKit.get("linkCoverSize");
 		String albumCoverSize = PropKit.get("albumCoverSize");
 		String photoCoverSize = PropKit.get("photoCoverSize");
+		int pageSize = PropKit.getInt("pageSize", 18);
 
 		String[] linkCoverSizes = linkCoverSize.trim().split(",");
 		String[] albumCoverSizes = albumCoverSize.trim().split(",");
@@ -103,6 +104,6 @@ public class SystemConfig extends JFinalConfig {
 		int photoCoverHeight = Integer.parseInt(photoCoverSizes[1].trim());
 
 		SystemUtils.init(imgBaseDir, imgServer, linkCoverWidth, linkCoverHeight, albumCoverWidth, albumCoverHeight,
-				photoCoverWidth, photoCoverHeight);
+				photoCoverWidth, photoCoverHeight,pageSize);
 	}
 }

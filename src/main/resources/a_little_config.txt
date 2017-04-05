@@ -10,3 +10,5 @@ imgServer = http://localhost/images/
 linkCoverSize = 180,180
 albumCoverSize = 180,180
 photoCoverSize = 180,180
+
+pageSize = 18
