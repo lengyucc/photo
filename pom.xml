@@ -116,9 +116,9 @@
 		<dependency>
 		    <groupId>com.servlets</groupId>
 		    <artifactId>cos</artifactId>
-		    <version>09May2002</version>
+		    <version>09May2002-lmh</version>
 		</dependency>
-		<dependency>
+		<dependency> 
 		    <groupId>com.alibaba</groupId>
 		    <artifactId>fastjson</artifactId>
 		    <version>1.2.30</version>
@@ -148,7 +148,7 @@
 						<contextPath>/</contextPath>
 					</webApp>
 					<scanIntervalSeconds>5</scanIntervalSeconds>
-					<stopKey>antbeanadmin</stopKey>
+					<stopKey>photo</stopKey>
 					<stopPort>9990</stopPort>
 					<connectors>
 						<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">

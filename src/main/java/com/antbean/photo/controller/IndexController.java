@@ -17,6 +17,7 @@ import com.antbean.photo.model.Link;
 import com.antbean.photo.utils.ImageUtils;
 import com.antbean.photo.utils.ResultJson;
 import com.antbean.photo.utils.SystemUtils;
+import com.antbean.photo.utils.VideoUtils;
 import com.jfinal.core.Controller;
 import com.jfinal.upload.UploadFile;
 
@@ -46,6 +47,7 @@ public class IndexController extends Controller {
 			try {
 				data.addAll(processUploadFile(uploadFile.getFile(), uploadFile.getFileName(), m));
 			} catch (IOException e) {
+				LOG.error("处理失败", e);
 				renderJson(ResultJson.getFailResult(e.getMessage()));
 				return;
 			}
@@ -56,6 +58,7 @@ public class IndexController extends Controller {
 				try {
 					data.addAll(processUploadFile(uploadFile.getFile(), uploadFile.getFileName(), m));
 				} catch (IOException e) {
+					LOG.error("处理失败", e);
 					renderJson(ResultJson.getFailResult(e.getMessage()));
 					return;
 				}
@@ -68,6 +71,9 @@ public class IndexController extends Controller {
 	public static List<Map<String, Object>> processUploadFile(File file, String fileName, String m) throws IOException {
 		LOG.info("fileName:" + fileName);
 		String suffixName = fileName.substring(fileName.lastIndexOf(".") + 1, fileName.length());
+		String name = fileName.substring(0, fileName.lastIndexOf("."));
+		String uuid = UUID.randomUUID().toString();
+		String saveName = uuid + "." + suffixName;
 		if (ImageUtils.SUPPORTED_IMAGE_FORMATS.contains(suffixName)) {
 			// 图片
 			try {
@@ -76,10 +82,7 @@ public class IndexController extends Controller {
 				throw new IllegalArgumentException("读取图片失败", e);
 			}
 
-			String uuid = UUID.randomUUID().toString();
-			String saveName = uuid + "." + suffixName;
 			String coverName = uuid + "-c." + suffixName;
-			String name = fileName.substring(0, fileName.lastIndexOf("."));
 			try {
 				FileUtils.copyFile(file, new File(SystemUtils.getImgBaseDir(), saveName));
 			} catch (IOException e) {
@@ -112,8 +115,34 @@ public class IndexController extends Controller {
 			map.put("isVideo", false);
 			return Arrays.asList(map);
 		} else if (ImageUtils.SUPPORTED_VIDEO_FORMATS.contains(suffixName)) {
+			String frameName = uuid + "-f.jpg";
+			String coverName = uuid + "-c.jpg";
+
+			File frameFile = new File(SystemUtils.getImgBaseDir(), frameName);
+			File coverFile = new File(SystemUtils.getImgBaseDir(), coverName);
+
+			try {
+				VideoUtils.processFrame(file, frameFile);
+			} catch (IOException e) {
+				throw new IOException("获取视频帧失败", e);
+			}
+
+			if ("1".equals(m)) {
+				// 图片
+				while (!frameFile.canRead()) {
+					System.out.println("文件不可读");
+				}
+				ImageUtils.thumbnail(frameFile, coverFile, SystemUtils.getPhotoCoverWidth(),
+						SystemUtils.getPhotoCoverHeight());
+			} else {
+				throw new IllegalArgumentException("视频文件不能作为相册或链接封面");
+			}
+
 			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("uri", suffixName);
+			map.put("name", name);
+			map.put("uri", saveName);
+			map.put("frameUri", frameName);
+			map.put("coverUri", coverName);
 			map.put("isVideo", true);
 			// 视频
 			return Arrays.asList(map);

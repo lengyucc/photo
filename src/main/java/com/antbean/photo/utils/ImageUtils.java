@@ -20,7 +20,7 @@ public class ImageUtils {
 
 	public static final List<String> SUPPORTED_IMAGE_FORMATS = ThumbnailatorUtils.getSupportedOutputFormats();
 
-	public static final List<String> SUPPORTED_VIDEO_FORMATS = Arrays.asList("MP3", "mp3");
+	public static final List<String> SUPPORTED_VIDEO_FORMATS = Arrays.asList("MP4", "mp4");
 
 	public static void main(String[] args) throws IOException {
 //		thumbnail("d:/test/1.jpg", "d:/test/1_1.jpg", 1000, 618);

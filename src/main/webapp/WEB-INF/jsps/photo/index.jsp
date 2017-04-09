@@ -149,9 +149,15 @@
 							var html = $("#previewPhotoModal .modal-body .row").html();	// 需要以这种形式重新渲染
 							for(var i=0;i<data.data.length;i++){
 								var d = data.data[i];
-								html += '<div class="col-md-2 mphoto" data-src="'+data.imgServer+d.uri+'" v_cover_uri="'+d.coverUri+'" v_uri="'+d.uri+'" v_is_video="'+d.isVideo+'">';
-								html += '	<img src="'+data.imgServer+d.coverUri+'" width="160" height="160" class="img-responsive img-rounded"/>';
-								html += '</div>';
+								if(d.isVideo){
+									html += '<div class="col-md-2 mphoto" v_cover_uri="'+d.coverUri+'" v_uri="'+d.uri+'" v_is_video="'+d.isVideo+'">';
+									html += '	<img src="'+data.imgServer+d.coverUri+'" width="160" height="160" class="img-responsive img-rounded"/>';
+									html += '</div>';
+								}else{
+									html += '<div class="col-md-2 mphoto" data-src="'+data.imgServer+d.uri+'" v_cover_uri="'+d.coverUri+'" v_uri="'+d.uri+'" v_is_video="'+d.isVideo+'">';
+									html += '	<img src="'+data.imgServer+d.coverUri+'" width="160" height="160" class="img-responsive img-rounded"/>';
+									html += '</div>';
+								}
 							}
 							$("#previewPhotoModal .modal-body .row").html(html);	// 需要以这种形式重新渲染
 							
